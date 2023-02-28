@@ -5,10 +5,8 @@ Grupo 08 do laboratório da disciplina LPM 1/2023 PUC Minas - Praça da Liberdad
 ## Alunos integrantes da equipe
 
 * Bernardo Cavanellas Biondini
-* Carlos Emanuel Silva e Melo Oliveira
 * João Vitor Bessa Lacerda
 * Nathan Gonçalves de Oliveira
-* Vinicius Gonzaga Guilherme
 
 ## Professores responsáveis
 
