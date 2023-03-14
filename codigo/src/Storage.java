@@ -7,7 +7,7 @@ public class Storage {
 
     List<Product> productList = new ArrayList<>();
 
-
+    //Get total amount of products in stock
     public int getTotalAmountInStorage() {
         int qty = 0;
 
@@ -17,7 +17,8 @@ public class Storage {
 
         return qty;
     }
-
+    
+    //Get amount of specific product in stock
     public int getSpecificProductQuantity(Product product){
         int qty;
 
@@ -28,18 +29,21 @@ public class Storage {
         return qty;
     }
 
+    //Add product to stock
     public void AddToStorage(Product product) {
         if (!productList.contains(product)) {
             productList.add(product);
         }
     }
 
+    //Remove product from stock
     public void RemoveFromStorage(Product product) {
         if (productList.contains(product)) {
             productList.remove(product);
         }
     }
 
+    //Get the total value of the products in stock
     public double StorageTotalValue() {
         double totalValue = 0;
 
@@ -49,6 +53,7 @@ public class Storage {
         return totalValue;
     }
 
+    //Get the check in all the products if it they have the minimum quantity in storage to run the grocery store
     public List<Product> getAllMinimum() {
 
         List<Product> lowerThanMinimum = new ArrayList<>();
@@ -62,6 +67,7 @@ public class Storage {
         return lowerThanMinimum;
     }
 
+    // Get the check if the product has the minimum quantity in storage to run the grocery store
     public boolean getProductMinimum(Product product) {
         boolean minimum = false;
 
