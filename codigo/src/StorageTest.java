@@ -23,12 +23,14 @@ public class StorageTest {
         assertEquals(false,newStorage.getProductMinimum(juice));
     }
 
+    //Test getting a specific product quantity
     @Test
     public void checkSpecificProductQuantity() {
         newStorage.AddToStorage(juice);
         assertEquals(10, newStorage.getSpecificProductQuantity(juice));
     }
 
+    //Test checking if all the products in stock have the minimum quantity 
     @Test
     public void checkMinimumQuantityOfAllProducts() {
         newStorage.AddToStorage(detergent);
@@ -39,6 +41,7 @@ public class StorageTest {
         assertEquals(60, newStorage.getTotalAmountInStorage());
     }
 
+    //Test calculating the total storage value
     @Test
     public void CalculateStorageValue(){
 
