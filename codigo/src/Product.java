@@ -73,9 +73,13 @@ public class Product {
     * 
     * @param description_ - A descrição a ser atribuida
     */
-    public void setDescription(String description_) {
-        if(description_.length() > 3)
+    public Boolean setDescription(String description_) {
+        if(description_.length() > 3) {
             this.description = description_;
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -106,12 +110,15 @@ public class Product {
     * 
     * @param price - O preço a ser atribuido
     */
-    public void setPrice(double price) {
+    public Boolean setPrice(double price) {
         // Confirma se o preço está de acordo com a regra estabelecida de lucro
         if( price - this.getCost() <= this.getCost()*0.8 && price - this.getCost() >= this.getCost()*0.3) {
             this.price = price;
             this.setTax();
+            return true;
         }
+        
+        return false;
     }
 
     /**
@@ -174,10 +181,14 @@ public class Product {
     * 
     * @param quantity - A quantidade a diminuir
     */
-    public void decreaseQuantity(int quantity) {
+    public Boolean decreaseQuantity(int quantity) {
         // Decrece a quantidade da quantidade.
-        if(this.quantity - quantity >= 0)
+        if(this.quantity - quantity >= 0) {
             this.quantity -= quantity;
+            return true;
+        }
+
+        return false;
     }
 
     /**

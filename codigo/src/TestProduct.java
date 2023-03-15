@@ -48,7 +48,7 @@ public class TestProduct {
         */
         @Test
         public void testSetPrice() {
-            product.setPrice(9.00);
+            Assertions.assertTrue(product.setPrice(9.00));
             Assertions.assertEquals(9.00, product.getPrice(), 0.01);
             Assertions.assertEquals(10.62, product.getFinalPrice(), 0.01);
         }
@@ -58,7 +58,7 @@ public class TestProduct {
         */
         @Test
         public void testSetPriceInvalid() {
-            product.setPrice(3.00);
+            Assertions.assertFalse(product.setPrice(3.00));
             Assertions.assertEquals(7.50, product.getPrice(), 0.01);
             Assertions.assertEquals(8.85, product.getFinalPrice(), 0.01);
         }
@@ -85,7 +85,7 @@ public class TestProduct {
         */
         @Test
         public void testDecreaseQuantity() {
-            product.decreaseQuantity(50);
+            Assertions.assertTrue(product.decreaseQuantity(50));
             Assertions.assertEquals(50, product.getQuantity());
         }
     
@@ -94,7 +94,7 @@ public class TestProduct {
         */
         @Test
         public void testDecreaseQuantityInvalid() {
-            product.decreaseQuantity(150);
+            Assertions.assertFalse(product.decreaseQuantity(150));
             Assertions.assertEquals(100, product.getQuantity());
         }
        
