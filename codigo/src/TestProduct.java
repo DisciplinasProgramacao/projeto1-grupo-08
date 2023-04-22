@@ -1,5 +1,7 @@
 package codigo.src;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -98,4 +100,14 @@ public class TestProduct {
             Assertions.assertEquals(100, product.getQuantity());
         }
        
+        //incluído por mim.
+        @Test
+        public void naoPodeAdicionarQuantidadeNegativa(){
+           //  public Product(String name, String description, double cost, double price, int quantity, int minimumQuantity) {
+           
+            Product p = new Product("nome", "desc", 100.0,150.0,100,20);
+            p.addQuantity(-10);
+
+            assertEquals(100,p.getQuantity());
+        }
 }

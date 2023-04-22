@@ -43,6 +43,10 @@ public class Storage {
         }
     }
 
+    public void RemoveFromStorage(int product) { //criado por mim para não dar erro de compilação
+
+    }
+
     //Get the total value of the products in stock
     public double StorageTotalValue() {
         double totalValue = 0;
@@ -80,6 +84,23 @@ public class Storage {
             }
 
         return minimum;
+    }
+
+    public boolean getProductMinimum(int product) { //criado por mim para não dar erro de compilação
+        return false;
+    }
+    public void getProducts() { //criado por mim para não dar erro de compilação
+    }
+
+    public void getProductInfo(int op3) {  //criado por mim para não dar erro de compilação
+    }
+
+    public String getValueSold() {  //criado por mim para não dar erro de compilação
+        return null;
+    }
+
+    public String getAmountSpent() { //criado por mim para não dar erro de compilação
+        return null;
     }
 
 }

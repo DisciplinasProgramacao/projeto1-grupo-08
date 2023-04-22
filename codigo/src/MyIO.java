@@ -1,4 +1,4 @@
-package org.example;
+package codigo.src;     //corrigido por mim
 
 import java.io.*;
 import java.nio.charset.*;

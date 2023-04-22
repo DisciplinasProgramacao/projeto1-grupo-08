@@ -1,5 +1,4 @@
-package org.example;
-
+package codigo.src;     //corrigido por mim
 import java.sql.SQLOutput;
 
 public class Main {
