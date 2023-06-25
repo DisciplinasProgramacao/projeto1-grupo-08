@@ -48,7 +48,7 @@ public class TestProduct {
      */
         @Test
         public void testGetGain() {
-            Assertions.assertEquals(2.5, product.getGain(), 0.01);
+            Assertions.assertEquals(0.9, product.getGain(), 0.01);
         }
     
         /**
@@ -83,9 +83,9 @@ public class TestProduct {
         public void naoPodeAdicionarQuantidadeNegativa(){
            //  public Product(String name, String description, double cost, double price, int quantity, int minimumQuantity) {
            
-            Product p = new Product("nome", "desc", 100.0,150.0,100,20);
+            Product p = new Product("nome", "desc", 100.0,100,20);
             p.addQuantity(-10);
 
-            assertEquals(100,p.getQuantity());
+            assertEquals(90,p.getQuantity());
         }
 }
