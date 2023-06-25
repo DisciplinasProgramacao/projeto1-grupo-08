@@ -5,12 +5,14 @@ import java.util.List;
 
 public class Storage {
 
+    private static List<Product> products;
+    private static List<Product> soldProducts = new ArrayList<>();
+
     List<Product> productList = new ArrayList<>();
 
-    private double totalSales = 0;
     private double totalPurchases = 0;
 
-    //Get total amount of products in stock
+    // Get total amount of products in stock
     public int getTotalAmountInStorage() {
         int qty = 0;
 
@@ -20,9 +22,9 @@ public class Storage {
 
         return qty;
     }
-    
-    //Get amount of specific product in stock
-    public int getSpecificProductQuantity(Product product){
+
+    // Get amount of specific product in stock
+    public int getSpecificProductQuantity(Product product) {
         int qty;
 
         int index = productList.indexOf(product);
@@ -32,32 +34,57 @@ public class Storage {
         return qty;
     }
 
-    //Add product to stock
+    // Add product to stock
     public void AddToStorage(Product product) {
         if (!productList.contains(product)) {
             productList.add(product);
         }
     }
 
-    //Remove product from stock
-    public void RemoveFromStorage(Product product) {
-        if (productList.contains(product)) {
-            productList.remove(product);
+    // Remove product from stock
+    public static void RemoveFromStorage(Product product, int quantity) {
+        // Verificando se a lista de produtos foi inicializada
+        if (products == null) {
+            System.out.println("Erro: a lista de produtos não foi inicializada.");
+            return;
+        }
+
+        int index = products.indexOf(product);
+        // Verificando se o índice do produto é válido
+        if (index < 0 || index >= products.size()) {
+            System.out.println("Erro: índice do produto inválido.");
+            return;
+        }
+
+        Product productInStorage = products.get(index);
+        // Verificando se o produto não é nulo
+        if (productInStorage == null) {
+            System.out.println("Erro: o produto é nulo.");
+            return;
+        }
+
+        int newQuantity = productInStorage.getQuantity() - quantity;
+        if (newQuantity <= 0) {
+            products.remove(index);
+        } else {
+            productInStorage.addQuantity(newQuantity);
         }
     }
 
-    //Get the total value of the products in stock
+    // Get the total value of the products in stock
     public double StorageTotalValue() {
         double totalValue = 0;
 
         for (int i = 0; i < productList.size(); i++) {
-            // Altere esta linha para usar uma lógica diferente para calcular o valor total dos produtos em estoque
+            // Altere esta linha para usar uma lógica diferente para calcular o valor total
+            // dos produtos em estoque
             totalValue += productList.get(i).getPrice() * productList.get(i).getQuantity();
         }
         return totalValue;
     }
 
-    //Get the check in all the products if it they have the minimum quantity in storage to run the grocery store
+    // Get the check in all the products if it they have the minimum quantity in
+    // storage to run the grocery store
     public List<Product> getAllMinimum() {
 
         List<Product> lowerThanMinimum = new ArrayList<>();
@@ -71,7 +98,8 @@ public class Storage {
         return lowerThanMinimum;
     }
 
-    // Get the check if the product has the minimum quantity in storage to run the grocery store
+    // Get the check if the product has the minimum quantity in storage to run the
+    // grocery store
     public boolean getProductMinimum(Product product) {
         boolean minimum = false;
 
@@ -90,8 +118,12 @@ public class Storage {
         return productList;
     }
 
-    public double getValueSold() {
-        return totalSales;
+    public static double getValueSold() {
+        double total = 0;
+        for (Product product : soldProducts) {
+            total += product.getFinalPrice();
+        }
+        return total;
     }
 
     public double getAmountSpent() {
@@ -99,8 +131,13 @@ public class Storage {
     }
 
     public void recordSale(Product product, int quantity) {
+        double totalSales = 0;
+
         double saleValue = product.getPrice() * quantity;
         totalSales += saleValue;
+
+        // Adicione o produto à lista de produtos vendidos
+        soldProducts.add(product);
     }
 
     public void recordPurchase(Product product, int quantity) {

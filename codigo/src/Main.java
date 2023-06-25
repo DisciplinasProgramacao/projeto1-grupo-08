@@ -1,5 +1,6 @@
 package codigo.src; //corrigido por mim
 
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class Main {
@@ -24,11 +25,9 @@ public class Main {
             System.out.print(">> ");
             op = MyIO.readInt();
             switch (op) {
-
                 case 1:
-
                     String name, description;
-                    double cost, price;
+                    double cost;
                     int quantity, minimumQuantity;
 
                     System.out.print("Nome: ");
@@ -37,19 +36,24 @@ public class Main {
                     description = MyIO.readString();
                     System.out.print("Custo: ");
                     cost = MyIO.readDouble();
-                    System.out.print("Preço: ");
-                    price = MyIO.readDouble();
                     System.out.print("Quantidade: ");
                     quantity = MyIO.readInt();
                     System.out.print("Quantidade mínima: ");
                     minimumQuantity = MyIO.readInt();
 
-                    Product newProduct = new Product(name, description, cost, price, quantity, minimumQuantity);
+                    Product newProduct = new Product(name, description, cost, quantity, minimumQuantity);
                     Storage.AddToStorage(newProduct);
+
+                    // Registrando a compra do produto
+                    Storage.recordPurchase(newProduct, quantity);
+
+                    // Adicionando a quantidade comprada do produto ao estoque
+                    newProduct.addQuantity(quantity);
 
                     System.out.println("Produto adicionado ao estoque.");
 
                     break;
+
                 case 2:
                     int op1;
                     System.out.println("Escolha o produto: ");
@@ -64,7 +68,23 @@ public class Main {
                     System.out.print(">> ");
                     op1 = MyIO.readInt();
                     Product productToRemove = products.get(op1);
-                    Storage.RemoveFromStorage(productToRemove);
+
+                    int quantityToRemove;
+                    while (true) {
+                        try {
+                            System.out.print("Quantidade a ser removida: ");
+                            quantityToRemove = MyIO.readInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Por favor, insira um número inteiro válido.");
+                        }
+                    }
+
+                    codigo.src.Storage.RemoveFromStorage(productToRemove, quantityToRemove);
+
+                    // Registrando a venda do produto
+                    Storage.recordSale(productToRemove, quantityToRemove);
+
                     System.out.println("Produto removido.");
 
                     break;
@@ -83,6 +103,7 @@ public class Main {
                     if (Storage.getProductMinimum(productToCheck)) {
                         System.out.println(
                                 "O produto especificado tem a quantidade mínima necessária para funcionamento da mercearia.");
+
                     } else {
                         System.out.println(
                                 "O produto especificado não tem quantidade mínima necessária para funcionamento da mercearia.");
@@ -92,7 +113,6 @@ public class Main {
 
                     break;
                 case 4:
-                    System.out.println("ALERTA! Os seguintes produtos possuem quantidade abaixo do mínimo: ");
                     List<Product> productsBelowMinimum = Storage.getAllMinimum();
                     for (Product product : productsBelowMinimum) {
                         System.out.println(product.getName());
@@ -103,10 +123,11 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Valor do estoque atual: " + Storage.StorageTotalValue());
-                    System.out.println("Valor vendido: " + Storage.getValueSold());
                     System.out.println("Valor gasto em compras: " + Storage.getAmountSpent());
+                    System.out.println("Total de " + Storage.getTotalAmountInStorage() + " produtos no estoque.");
+                    System.out.println("Valor vendido: " + codigo.src.Storage.getValueSold());
                     break;
+
                 case 0:
                     System.out.println("Finalizando programa.");
                     break;
