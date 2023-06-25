@@ -8,8 +8,6 @@
 package codigo.src;
 
 public class Product {
-    private static int firstId = 0;
-    private int id;
     private String name;
     private String description;
     private double cost;
@@ -20,21 +18,18 @@ public class Product {
     private int minimumQuantity;
 
     public Product() {
-        this.id = ++firstId;
         this.setName("Product");
         this.setDescription("Descrição");
         this.setCost(5.00);
-        this.setPrice(7.5);
+        this.calculatePrice();
         this.addQuantity(100);
         this.setMinimumQuantity(50);
     }
-
     public Product(String name, String description, double cost, double price, int quantity, int minimumQuantity) {
-        this.id = ++firstId;
         this.setName(name);
         this.setDescription(description);
         this.setCost(cost);
-        this.setPrice(price);
+        this.calculatePrice();
         this.addQuantity(quantity);
         this.setMinimumQuantity(minimumQuantity);
     }
@@ -110,15 +105,8 @@ public class Product {
     * 
     * @param price - O preço a ser atribuido
     */
-    public Boolean setPrice(double price) {
-        // Confirma se o preço está de acordo com a regra estabelecida de lucro
-        if( price - this.getCost() <= this.getCost()*0.8 && price - this.getCost() >= this.getCost()*0.3) {
-            this.price = price;
-            this.setTax();
-            return true;
-        }
-        
-        return false;
+    public void calculatePrice() {
+        this.price = this.cost * 1.5;
     }
 
     /**
@@ -128,14 +116,6 @@ public class Product {
         return this.tax;
     }
 
-    /**
-    * Calcula o imposto sobre o preço final do produto, a partir de sua definição
-    */
-    private void setTax() {
-        this.tax = this.getPrice() * 0.18;
-        double value = this.getTax() + this.getPrice();
-        this.setFinalPrice(value);
-    }
 
     /**
     * Retorna o preço final do  produto.
@@ -144,14 +124,6 @@ public class Product {
         return this.finalPrice;
     }
 
-    /**
-    * Quando o preço do produto e os impostos são definidos o preço final recebe esse valor
-    * 
-    * @param finalPrice - O preço final calculado
-    */
-    private void setFinalPrice(double finalPrice) {
-        this.finalPrice = finalPrice;
-    }
 
     /**
     * Retorna o lucro

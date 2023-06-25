@@ -7,6 +7,9 @@ public class Storage {
 
     List<Product> productList = new ArrayList<>();
 
+    private double totalSales = 0;
+    private double totalPurchases = 0;
+
     //Get total amount of products in stock
     public int getTotalAmountInStorage() {
         int qty = 0;
@@ -43,16 +46,13 @@ public class Storage {
         }
     }
 
-    public void RemoveFromStorage(int product) { //criado por mim para não dar erro de compilação
-
-    }
-
     //Get the total value of the products in stock
     public double StorageTotalValue() {
         double totalValue = 0;
 
         for (int i = 0; i < productList.size(); i++) {
-            totalValue += productList.get(i).getCost() * productList.get(i).getQuantity();
+            // Altere esta linha para usar uma lógica diferente para calcular o valor total dos produtos em estoque
+            totalValue += productList.get(i).getPrice() * productList.get(i).getQuantity();
         }
         return totalValue;
     }
@@ -77,30 +77,34 @@ public class Storage {
 
         int index = productList.indexOf(product);
 
-            if (productList.get(index).getQuantity() <= productList.get(index).getMinimumQuantity()) {
-                minimum = false;
-            }else {
-                minimum = true;
-            }
+        if (productList.get(index).getQuantity() <= productList.get(index).getMinimumQuantity()) {
+            minimum = false;
+        } else {
+            minimum = true;
+        }
 
         return minimum;
     }
 
-    public boolean getProductMinimum(int product) { //criado por mim para não dar erro de compilação
-        return false;
-    }
-    public void getProducts() { //criado por mim para não dar erro de compilação
+    public List<Product> getProducts() {
+        return productList;
     }
 
-    public void getProductInfo(int op3) {  //criado por mim para não dar erro de compilação
+    public double getValueSold() {
+        return totalSales;
     }
 
-    public String getValueSold() {  //criado por mim para não dar erro de compilação
-        return null;
+    public double getAmountSpent() {
+        return totalPurchases;
     }
 
-    public String getAmountSpent() { //criado por mim para não dar erro de compilação
-        return null;
+    public void recordSale(Product product, int quantity) {
+        double saleValue = product.getPrice() * quantity;
+        totalSales += saleValue;
     }
 
+    public void recordPurchase(Product product, int quantity) {
+        double purchaseValue = product.getCost() * quantity;
+        totalPurchases += purchaseValue;
+    }
 }

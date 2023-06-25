@@ -44,30 +44,8 @@ public class TestProduct {
             product.setCost(10.00);
             Assertions.assertEquals(10.00, product.getCost(), 0.01);
         }
-    
-        /**
-        * Teste de atribuição de preço do produto
-        */
-        @Test
-        public void testSetPrice() {
-            Assertions.assertTrue(product.setPrice(9.00));
-            Assertions.assertEquals(9.00, product.getPrice(), 0.01);
-            Assertions.assertEquals(10.62, product.getFinalPrice(), 0.01);
-        }
-    
-        /**
-        * Teste de atribuição de preço do produto com valor inválido
-        */
-        @Test
-        public void testSetPriceInvalid() {
-            Assertions.assertFalse(product.setPrice(3.00));
-            Assertions.assertEquals(7.50, product.getPrice(), 0.01);
-            Assertions.assertEquals(8.85, product.getFinalPrice(), 0.01);
-        }
-    
-        /**
-        * Teste do valor de lucro do Produto
-        */
+            /**
+     */
         @Test
         public void testGetGain() {
             Assertions.assertEquals(2.5, product.getGain(), 0.01);
