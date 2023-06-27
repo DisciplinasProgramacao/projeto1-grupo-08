@@ -53,7 +53,6 @@ public class Main {
                     System.out.println("Produto adicionado ao estoque.");
 
                     break;
-
                 case 2:
                     int op1;
                     System.out.println("Escolha o produto: ");
@@ -80,12 +79,16 @@ public class Main {
                         }
                     }
 
-                    codigo.src.Storage.RemoveFromStorage(productToRemove, quantityToRemove);
+                    // Atualizando o estoque de produtos ao vender um produto
+                    if (productToRemove.decreaseQuantity(quantityToRemove)) {
+                        System.out.println("Produto vendido com sucesso. O imposto pago foi de 18%");
+
+                    } else {
+                        System.out.println("Erro: não foi possível vender o produto.");
+                    }
 
                     // Registrando a venda do produto
                     Storage.recordSale(productToRemove, quantityToRemove);
-
-                    System.out.println("Produto removido.");
 
                     break;
 
@@ -121,11 +124,10 @@ public class Main {
                     System.out.printf("Valor total do estoque: R$%.2f\n", Storage.StorageTotalValue());
 
                     break;
-
                 case 5:
-                    System.out.println("Valor gasto em compras: " + Storage.getAmountSpent());
+                    System.out.println("Valor gasto em compras: R$" + Storage.getAmountSpent());
                     System.out.println("Total de " + Storage.getTotalAmountInStorage() + " produtos no estoque.");
-                    System.out.println("Valor vendido: " + codigo.src.Storage.getValueSold());
+                    System.out.println("Valor vendido: R$" + codigo.src.Storage.getValueSold());
                     break;
 
                 case 0:

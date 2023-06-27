@@ -43,31 +43,30 @@ public class Storage {
 
     // Remove product from stock
     public static void RemoveFromStorage(Product product, int quantity) {
-        // Verificando se a lista de produtos foi inicializada
+        // Verifique se a lista de produtos foi inicializada
         if (products == null) {
             System.out.println("Erro: a lista de produtos não foi inicializada.");
             return;
         }
 
         int index = products.indexOf(product);
-        // Verificando se o índice do produto é válido
+        // Verifique se o índice do produto é válido
         if (index < 0 || index >= products.size()) {
             System.out.println("Erro: índice do produto inválido.");
             return;
         }
 
         Product productInStorage = products.get(index);
-        // Verificando se o produto não é nulo
+        // Verifique se o produto não é nulo
         if (productInStorage == null) {
             System.out.println("Erro: o produto é nulo.");
             return;
         }
 
-        int newQuantity = productInStorage.getQuantity() - quantity;
-        if (newQuantity <= 0) {
-            products.remove(index);
+        if (productInStorage.decreaseQuantity(quantity)) {
+            System.out.println("Produto removido com sucesso do estoque.");
         } else {
-            productInStorage.addQuantity(newQuantity);
+            System.out.println("Erro: não foi possível remover o produto do estoque.");
         }
     }
 
@@ -75,11 +74,10 @@ public class Storage {
     public double StorageTotalValue() {
         double totalValue = 0;
 
-        for (int i = 0; i < productList.size(); i++) {
-            // Altere esta linha para usar uma lógica diferente para calcular o valor total
-            // dos produtos em estoque
-            totalValue += productList.get(i).getPrice() * productList.get(i).getQuantity();
+        for (Product product : productList) {
+            totalValue += product.getPrice() * product.getQuantity();
         }
+
         return totalValue;
     }
 

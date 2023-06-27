@@ -184,11 +184,10 @@ public class Product {
      * Calcula o preço de venda
      */
 
-    public void calculateSalePrice() {
+    public double calculateSalePrice() {
         double profit = this.cost * this.profitMargin;
-        double taxes = (this.cost + profit) * 0.18; // calculando o valor dos impostos como 18% sobre a soma do custo e
-                                                    // da margem de lucro
-        this.price = this.cost + profit + taxes;
+        double taxes = (this.cost + profit) * 0.18; // calculando o valor dos impostos como 18% sobre a soma do custo e da margem de lucro
+        return this.price = this.cost + profit + taxes;
     }
 
     /**
